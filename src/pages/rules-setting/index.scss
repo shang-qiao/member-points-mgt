@@ -1,0 +1,64 @@
+.header {
+    .title {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.45);
+        text-align: left;
+    }
+}
+
+.content {
+    .item {
+        margin: 20px 0;
+
+        .title {
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .radio {
+            display: flex;
+            align-items: center;
+
+            & label:nth-of-type(2) {
+                margin-left: 50px;
+            }
+        }
+
+        .wrap {
+            display: flex;
+            flex-wrap: wrap;
+            align-content: space-between;
+        }
+
+        .label-group {
+            display: flex;
+            align-items: center;
+
+            .label-left {
+                flex: auto;
+            }
+
+            Input {
+                flex: 1 1 160px;
+            }
+
+            .label-right {
+                flex: auto;
+            }
+        }
+    }
+}
+
+.footer {
+    .btn-group {
+        display: flex;
+        justify-content: flex-start;
+        padding-top: 20px;
+
+        & Button:last-child {
+            margin-left: 24px;
+        }
+    }
+}
