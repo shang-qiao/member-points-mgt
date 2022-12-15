@@ -16,7 +16,6 @@ export default class Home extends Component {
   }
 
   render() {
-    console.log();
     const { Header, Content, Sider } = Layout;
 
     const items = [
@@ -100,8 +99,7 @@ export default class Home extends Component {
                 height: '100%',
               }}
             >
-              {this.props.routerview}
-              {/* <Outlet/> */}
+              {this.props.childElement}
             </div>
           </Content>
         </Layout>
@@ -110,7 +108,6 @@ export default class Home extends Component {
   }
 
   componentDidMount = () => {
-    console.log('cmd');
     // todo:如何使用useLocation()?
     // question:菜单改变路由，路由变化驱动面包屑改变；面包屑改变，驱动菜单回显。死循环？
     // 刷新页面后，根据路由地址回显菜单选项

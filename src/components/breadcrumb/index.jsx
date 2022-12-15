@@ -24,7 +24,7 @@ export default () => {
       </Breadcrumb.Item>
     );
   });
-  const path = breadcrumbItems[breadcrumbItems.length - 1]?.key;
+  // const path = breadcrumbItems[breadcrumbItems.length - 1]?.key;
   // Pubsub.publish('updateSelectedKey', path.slice(1));
   return (
     <Breadcrumb>{breadcrumbItems}</Breadcrumb>
