@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-export default class PromotionPoints extends Component {
+import { connect } from 'react-redux';
+
+class PromotionPoints extends Component {
+
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
+
   render() {
     return (
       <div>
@@ -9,3 +17,11 @@ export default class PromotionPoints extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    username: state.username
+  };
+}
+
+export default connect(mapStateToProps)(PromotionPoints);

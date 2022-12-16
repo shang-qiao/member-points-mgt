@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 // 公共属性设置
 const instance = axios.create({
@@ -38,16 +39,18 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (res) => {
     if (res.status === 200) {
-      if (res.data.code === 500) {
-        // 未授权调用授权接口
-      } else if (res.data.code === 510) {
-        // 未登录跳转登录页面
-      } else {
-        return res;
+      if (res.data.code === 611) {
+        // token过期，跳转登录界面
+        // useNavigate()('/');
+        window.location.href = '/login';
+        localStorage.removeItem('token');
+        return;
       }
-    } else {
-      Promise.reject(res);
+      // 用户名或密码错误，校验失败
+      return res;
     }
+    // 非200状态码
+    Promise.reject(res);
   },
   (error) => {
     Promise.reject(error);
