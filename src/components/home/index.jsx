@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
-import { BarChartOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import {
+  BarChartOutlined,
+  VideoCameraOutlined,
+  LogoutOutlined,
+  UserOutlined,
+  BellOutlined,
+  QuestionCircleOutlined,
+} from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Dropdown, Space, Badge } from 'antd';
 import Crumbs from '../breadcrumb';
 // import PubSub from 'pubsub-js';
 import './index.scss';
@@ -13,12 +20,47 @@ export default class Home extends Component {
     // this.state = {
     //   currentRoute: 'rules-setting',
     // };
+    this.state = {
+      username: localStorage.getItem('username'),
+    };
   }
+
+  logout = () => {
+    // 清除token
+    localStorage.removeItem('token');
+    // 跳转登录界面
+    location.href = '/';
+  };
 
   render() {
     const { Header, Content, Sider } = Layout;
 
     const items = [
+      {
+        key: '1',
+        icon: React.createElement(UserOutlined),
+        label: (
+          <a
+            target='_blank'
+            rel='noopener noreferrer'
+            href='https://www.antgroup.com'
+          >
+            个人中心
+          </a>
+        ),
+      },
+      {
+        key: '2',
+        icon: React.createElement(LogoutOutlined),
+        label: (
+          <a rel='noopener noreferrer' onClick={this.logout}>
+            退出
+          </a>
+        ),
+      },
+    ];
+
+    const menuItems = [
       {
         key: 'rules-setting',
         icon: React.createElement(VideoCameraOutlined),
@@ -46,12 +88,28 @@ export default class Home extends Component {
         <Header className='outer-header'>
           <h1 className='title'></h1>
           <div className='nav-group'>
-            <span className='bell'></span>
-            <span className='question'></span>
+            <div className='msg'>
+              <Badge size='small' offset={[-15, -2]} count={5}>
+                <BellOutlined />
+              </Badge>
+            </div>
+            <div className='question'>
+              <QuestionCircleOutlined />
+            </div>
             <span className='line'></span>
-            <span className='photo'></span>
-            <span className='name'>undefined</span>
-            <span className='down'></span>
+            <Space direction='vertical'>
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                placement='bottom'
+              >
+                <div className='info'>
+                  <span className='photo'></span>
+                  <span className='name'>{this.state.username}</span>
+                </div>
+              </Dropdown>
+            </Space>
           </div>
         </Header>
         <Sider
@@ -71,9 +129,8 @@ export default class Home extends Component {
             theme='dark'
             mode='inline'
             defaultSelectedKeys={['rules-setting']}
-            // selectedKeys={this.state.currentRoute}
             defaultOpenKeys={['points-get']}
-            items={items}
+            items={menuItems}
           />
         </Sider>
         <Layout className='site-layout'>

@@ -17,15 +17,29 @@ export default () => (
       path='/rules-setting'
       element={
         <AuthRoute>
-          <Home childElement={<RulesSetting />}></Home>
+          <Home childElement={<RulesSetting />}> </Home>
         </AuthRoute>
       }
     />
     <Route
       path='/points-get'
       element={<Navigate to='/points-get/activity-points' replace />}
+    ></Route>
+    <Route
+      path='/points-get/activity-points'
+      element={
+        <AuthRoute>
+          <Home childElement={<ActivityPoints />}> </Home>
+        </AuthRoute>
+      }
     />
-    <Route path='/points-get/activity-points' element={<ActivityPoints />} />
-    <Route path='/points-get/promotion-points' element={<PromotionPoints />} />
+    <Route
+      path='/points-get/promotion-points'
+      element={
+        <AuthRoute>
+          <Home childElement={<PromotionPoints />}> </Home>
+        </AuthRoute>
+      }
+    />
   </Routes>
 );

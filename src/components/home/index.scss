@@ -17,49 +17,51 @@
     .nav-group {
         display: flex;
         align-items: center;
-        gap: 15px;
+        height: 100%;
+        gap: 10px;
 
-        .bell {
-            width: 20.24px;
-            height: 23.24px;
-            margin-right: 20px;
-            background: url('../../images/bell.png') no-repeat;
+        &>div {
+            cursor: pointer;
+
+            &:hover {
+                background: #252a3d;
+            }
         }
 
-        .question {
-            width: 21.78px;
-            height: 21.78px;
-            margin-right: 20px;
-            background: url('../../images/question.png') no-repeat;
+        .anticon-bell, .anticon-question-circle{
+            color: #fff;
+            margin: 0 15px;
+            font-size: 14px;
         }
 
         .line {
             height: 30px;
-            margin-right: 20px;
+            margin-right: 10px;
             border: 0;
             border-left: 1px solid #fff;
         }
 
-        .photo {
-            width: 42px;
-            height: 42px;
-            background: url('../../images/photo.png') no-repeat;
-        }
+        .info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-width: 100px;
 
-        .name {
-            font-size: 14px;
-            color: #fff;
-        }
+            & span {
+                margin: 0 15px;
+            }
 
-        .down {
-            width: 13.5px;
-            height: 8px;
-            color: #fff;
-            background: url('../../images/down.png') no-repeat;
-        }
+            .photo {
+                width: 42px;
+                height: 42px;
+                background: url('../../images/photo.png') no-repeat;
+                zoom: 0.8;
+            }
 
-        & span:not(:nth-child(5)) {
-            zoom: 0.7;
+            .name {
+                font-size: 16px;
+                color: #fff;
+            }
         }
     }
 

@@ -9,12 +9,12 @@ export default class Login extends Component {
   onFinish = async(values) => {
     // 调用登录接口
     const { data: res } = await login(values);
-    // const res = login(values).data;
     if (res.code === 200) {
       // 登录成功，跳转页面
       message.success('登录成功！');
       // token存入localstorage
       localStorage.setItem('token', res.token);
+      localStorage.setItem('username', values.username);
       window.location.href = '/';
     } else {
       message.error('用户名或密码输入错误，请重试！');

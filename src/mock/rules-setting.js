@@ -30,7 +30,7 @@ Mock.mock('/login', 'post',  (options) => {
 });
 
 function resData(result, code, msg, token) {
-  return {result, code, msg, token};
+  return { result, code, msg, token };
 }
 
 //mock好像获取不到header，这里模拟了一下
