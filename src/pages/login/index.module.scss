@@ -1,11 +1,8 @@
 .container {
     position: relative;
     height: 100vh;
-    // background: url('../../images/background.png') no-repeat;
-
     background: linear-gradient(220deg, #00bcd4, #9c27b0cf);
 
-    // filter: blur(2px);
     .form {
         position: absolute;
         display: flex;
@@ -25,16 +22,16 @@
         .title {
             font-size: 30px;
             text-align: center;
-            // background: url('../../images/title.png') no-repeat;
         }
 
-        .login-form {
+        .login_form {
             width: 60%;
+
             input {
                 padding-left: 10px;
             }
 
-            .ant-btn {
+            button {
                 width: 100%;
             }
         }

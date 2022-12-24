@@ -1,0 +1,24 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .add_activ {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #1677ff;
+
+    .label {
+      font-size: 14px;
+    }
+  }
+}
+
+// 修改组件样式，不由styles.类名调用
+:global {
+  .anticon-file-add {
+    margin-right: 5px;
+    font-size: 20px;
+  }
+}

@@ -5,7 +5,7 @@ import Login from '../pages/login';
 import RulesSetting from '../pages/rules-setting';
 import ActivityPoints from '../pages/activity-points';
 import PromotionPoints from '../pages/promotion-points';
-import Home from '../components/home';
+import HomeLayout from '../components/home-layout';
 import { AuthRoute } from '../utils/AuthRoute';
 
 export default () => (
@@ -17,7 +17,7 @@ export default () => (
       path='/rules-setting'
       element={
         <AuthRoute>
-          <Home childElement={<RulesSetting />}> </Home>
+          <HomeLayout childElement={<RulesSetting />}> </HomeLayout>
         </AuthRoute>
       }
     />
@@ -29,7 +29,7 @@ export default () => (
       path='/points-get/activity-points'
       element={
         <AuthRoute>
-          <Home childElement={<ActivityPoints />}> </Home>
+          <HomeLayout childElement={<ActivityPoints />}> </HomeLayout>
         </AuthRoute>
       }
     />
@@ -37,7 +37,7 @@ export default () => (
       path='/points-get/promotion-points'
       element={
         <AuthRoute>
-          <Home childElement={<PromotionPoints />}> </Home>
+          <HomeLayout childElement={<PromotionPoints />}> </HomeLayout>
         </AuthRoute>
       }
     />

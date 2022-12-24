@@ -1,32 +1,65 @@
 import Mock from 'mockjs';
 
+let rulesSetting = {
+  isEnabled: 2,
+  enableHours: 1,
+  isExpire: 2,
+  expireDays: 2,
+  isRemind: 2,
+  pointsRules: {
+    standardMoney: 3,
+    paidMondy: 4,
+    getPoints: 5,
+    maxPoints: 6
+  },
+  isDeduction: 2
+};
+
 // 延时后再响应
 Mock.setup({
-  timeout: 500
+  timeout: 300,
 });
 
-Mock.mock('/rules-setting/save', 'post',  () => {
-  if(verifyToken()) {
+Mock.mock('/rules-setting/save', 'post', (options) => {
+  if (verifyToken()) {
     // 继续业务操作，返回成功或失败
+    rulesSetting = JSON.parse(options.body);
     return resData(true, 200, 'success!');
-  } 
+  }
   // token校验失败，返回611错误码；前端收到，跳转登录接口。
-  return resData(false, 611,'expired token!');
+  return resData(false, 611, 'expired token!');
 });
 
-Mock.mock('/login', 'post',  (options) => {
-  console.log(options);
+Mock.mock('/rules-setting/get', 'get', () => {
+  if (verifyToken()) {
+    // 继续业务操作，返回成功或失败
+    return {
+      result: true,
+      code: 200,
+      data: rulesSetting,
+      msg: 'success!',
+    };
+  }
+  // token校验失败，返回611错误码；前端收到，跳转登录接口。
+  return resData(false, 611, 'expired token!');
+});
+
+Mock.mock('/login', 'post', (options) => {
   const { username, password } = JSON.parse(options.body);
   // 用户要登录，校验用户名和密码
   if (username === 'admin' && password === '12345') {
     // 登录成功后，存储token(里面包含了用户的身份信息)
     // token过期时间由服务端控制，过期了，需要重新登录获取
     // 用户登录成功，颁发2小时有效期的token；
-    return resData(true, 200, 'success!', 'afhawebewrq.werwoetwe.wherhuiewjqqwe');
-  } 
+    return resData(
+      true,
+      200,
+      'success!',
+      'afhawebewrq.werwoetwe.wherhuiewjqqwe'
+    );
+  }
   // 用户名校验失败
   return resData(false, 610, 'username or password is incorrect!');
-  
 });
 
 function resData(result, code, msg, token) {

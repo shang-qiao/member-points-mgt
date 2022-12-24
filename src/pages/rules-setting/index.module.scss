@@ -32,11 +32,11 @@
             align-content: space-between;
         }
 
-        .label-group {
+        .label_group {
             display: flex;
             align-items: center;
 
-            .label-left {
+            .label_left {
                 flex: auto;
             }
 
@@ -44,7 +44,7 @@
                 flex: 1 1 160px;
             }
 
-            .label-right {
+            .label_right {
                 flex: auto;
             }
         }
@@ -52,7 +52,7 @@
 }
 
 .footer {
-    .btn-group {
+    .btn_group {
         display: flex;
         justify-content: flex-start;
         padding-top: 20px;

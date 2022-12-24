@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
+import { Tabs } from 'antd';
 
 class PromotionPoints extends Component {
 
@@ -8,20 +9,46 @@ class PromotionPoints extends Component {
     console.log(props);
   }
 
+  handleChange = (e) => {
+    console.log(e);
+  };
+
   render() {
     return (
       <div>
-        <div>promotion-points</div>
+        <Tabs
+          size='large'
+          defaultActiveKey='1'
+          onChange={this.handleChange}
+          items={[
+            {
+              label: 'Tab 11',
+              key: '11',
+              children: 'Content of Tab Pane 1',
+            },
+            {
+              label: 'Tab 22',
+              key: '2',
+              children: 'Content of Tab Pane 2',
+            },
+            {
+              label: 'Tab 33',
+              key: '3',
+              children: 'Content of Tab Pane 3',
+            },
+          ]}
+        />
       </div>
 
     );
   }
 }
+export default PromotionPoints;
 
-function mapStateToProps(state) {
-  return {
-    username: state.username
-  };
-}
+// function mapStateToProps(state) {
+//   return {
+//     username: state.username
+//   };
+// }
 
-export default connect(mapStateToProps)(PromotionPoints);
+// export default connect(mapStateToProps)(PromotionPoints);
