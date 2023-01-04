@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 // import { connect } from 'react-redux';
+// import { setUsername } from '../../store/actions/user';
 import { Tabs } from 'antd';
 
 class PromotionPoints extends Component {
-
   constructor(props) {
     super(props);
     console.log(props);
@@ -39,7 +39,6 @@ class PromotionPoints extends Component {
           ]}
         />
       </div>
-
     );
   }
 }
@@ -50,5 +49,14 @@ export default PromotionPoints;
 //     username: state.username
 //   };
 // }
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     setUsername(username) {
+//       dispatch(setUsername(username));
+//     }
+//   };
+// }
+// export default connect(mapStateToProps, mapDispatchToProps)(PromotionPoints);
 
-// export default connect(mapStateToProps)(PromotionPoints);
+// connect 现在是接受参数mapStateToProps/mapDispatchToProps，然后返回⼀个函数，这个返回的函数才是高阶组件。
+// 它会接受⼀个组件作为参数，然后⽤connect把组件包装以后再返回。

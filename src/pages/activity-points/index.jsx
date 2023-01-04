@@ -26,7 +26,7 @@ export default function index() {
             children: <CustomActivity />,
           }
         ]}
-      />;
+      />
     </div>
   );
 }

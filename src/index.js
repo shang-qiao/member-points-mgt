@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import './index.css';
 import './mock/rules-setting';
+import './mock/points-setting';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -6,6 +6,48 @@ const { RangePicker } = DatePicker;
 
 export default (props) => {
   const [form] = Form.useForm();
+  const portOptions = [
+    {
+      label: 'App端',
+      value: 'app',
+    },
+    {
+      label: '小程序端',
+      value: 'miniProgram',
+    },
+    {
+      label: 'PC端',
+      value: 'pc',
+    },
+  ];
+  const typeOptions = [
+    {
+      label: '注册',
+      value: 'register',
+    },
+    {
+      label: '完善个人信息',
+      value: 'completeInfo',
+    },
+    {
+      label: '首次签到',
+      value: 'firstSign',
+    },
+  ];
+  const statusOptions = [
+    {
+      label: '已上线',
+      value: 'online',
+    },
+    {
+      label: '未上线',
+      value: 'offline',
+    },
+    {
+      label: '已过期',
+      value: 'expired',
+    },
+  ];
   const onGenderChange = (value) => {
     // switch (value) {
     //   case 'male':
@@ -26,9 +68,6 @@ export default (props) => {
     //   default:
     // }
   };
-  const onFinish = (values) => {
-    console.log('onFinish', values);
-  };
 
   return (
     <Form
@@ -37,11 +76,10 @@ export default (props) => {
       layout='inline'
       form={form}
       name='control-hooks'
-      onFinish={onFinish}
     >
       <Form.Item
         colon={false}
-        name='activity-name'
+        name='activityName'
         label='活动名称'
         rules={[
           {
@@ -54,7 +92,7 @@ export default (props) => {
 
       <Form.Item
         colon={false}
-        name='activity-time'
+        name='activityTime'
         label='活动时间'
         rules={[
           {
@@ -64,12 +102,12 @@ export default (props) => {
           },
         ]}
       >
-        <RangePicker />
+        <RangePicker format='YYYY/MM/DD' />
       </Form.Item>
 
       <Form.Item
         colon={false}
-        name='activity-status'
+        name='activityStatus'
         label='活动状态'
         rules={[
           {
@@ -81,16 +119,14 @@ export default (props) => {
           placeholder='请选择活动状态'
           onChange={onGenderChange}
           allowClear
+          options={statusOptions}
         >
-          <Select.Option value='online'>已上线</Select.Option>
-          <Select.Option value='offline'>未上线</Select.Option>
-          <Select.Option value='expired'>已过期</Select.Option>
         </Select>
       </Form.Item>
 
       <Form.Item
         colon={false}
-        name='activity-port'
+        name='activityPort'
         label='活动端口'
         rules={[
           {
@@ -102,16 +138,12 @@ export default (props) => {
           placeholder='请选择活动端口'
           onChange={onGenderChange}
           allowClear
-        >
-          <Select.Option value='pc'>PC端</Select.Option>
-          <Select.Option value='app'>APP端</Select.Option>
-          <Select.Option value='mini-program'>小程序端</Select.Option>
-        </Select>
+          options={portOptions}
+        ></Select>
       </Form.Item>
-
       <Form.Item
         colon={false}
-        name='activity-type'
+        name='activityType'
         label='活动类型'
         rules={[
           {
@@ -123,15 +155,12 @@ export default (props) => {
           placeholder='请选择活动类型'
           onChange={onGenderChange}
           allowClear
+          options={typeOptions}
         >
-          <Select.Option value='male'>注册</Select.Option>
-          <Select.Option value='female'>完善个人信息</Select.Option>
-          <Select.Option value='aa'>首次签到</Select.Option>
         </Select>
       </Form.Item>
 
       {props.slot}
-
     </Form>
   );
 };
