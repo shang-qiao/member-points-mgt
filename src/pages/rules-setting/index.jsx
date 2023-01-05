@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { Radio, Input, Button, Typography, Spin, message } from 'antd';
 import { saveRulesSetting, getRulesSetting } from '../../api/rules-setting';
 import styles from './index.module.scss';
+import { withTranslation } from 'react-i18next';
 
-export default class RulesSetting extends Component {
+class RulesSetting extends Component {
   constructor(props) {
     super(props);
+    this.t = props.t;
     this.state = {
       isEnabled: 2,
       enableHours: 0,
@@ -20,7 +22,7 @@ export default class RulesSetting extends Component {
       },
       isDeduction: 2,
       inputDisabled: false,
-      isLoading: false
+      isLoading: false,
     };
   }
 
@@ -50,7 +52,7 @@ export default class RulesSetting extends Component {
 
   showLoading = (isLoading) => {
     this.setState({
-      isLoading
+      isLoading,
     });
   };
 
@@ -60,9 +62,9 @@ export default class RulesSetting extends Component {
     this.showLoading(false);
     if (res.code === 200) {
       this.getRulesSetting();
-      message.success('设置保存成功', 1);
+      message.success(this.t('ruleSetting.setSaveSuccess'), 1);
     } else {
-      message.error('设置保存失败', 1);
+      message.error(this.t('ruleSetting.setSaveFailed'), 1);
     }
   };
 
@@ -75,7 +77,7 @@ export default class RulesSetting extends Component {
       console.log(res);
       this.setState(res.data);
     } else {
-      message.error('设置查询失败', 1);
+      message.error(this.t('ruleSetting.setQueryFailed'), 1);
     }
   };
 
@@ -89,120 +91,159 @@ export default class RulesSetting extends Component {
       <Spin spinning={this.state.isLoading}>
         <div>
           <div className={styles.header}>
-            <div className={styles.title}>请设置具体会员积分规则</div>
+            <div className={styles.title}>{this.t('ruleSetting.title')}</div>
           </div>
           <div className={styles.content}>
             <div className={styles.item}>
-              <div className={styles.title}>生效设置</div>
+              <div className={styles.title}>
+                {this.t('ruleSetting.effectSet')}
+              </div>
               <Radio.Group
                 className={styles.radio}
                 onChange={this.onValueChange('isEnabled')}
                 value={this.state.isEnabled}
               >
-                <Radio value={1}>确认收货立即生效</Radio>
+                <Radio value={1}>
+                  {this.t('ruleSetting.receiveGoodsEffect')}
+                </Radio>
                 <Radio value={2}>
                   <div className={styles.label_group}>
-                    <span className={styles.label_left}>确认收货后</span>
+                    <span className={styles.label_left}>
+                      {this.t('ruleSetting.afterReceiveGoods')}
+                    </span>
                     <Input
-                      disabled={ this.state.isEnabled === 1 }
+                      disabled={this.state.isEnabled === 1}
                       onChange={this.onValueChange('enableHours')}
                       value={this.state.enableHours}
                       placeholder='24'
                     />
-                    <span className={styles.label_right}>小时内生效</span>
+                    <span className={styles.label_right}>
+                      {this.t('ruleSetting.effectInHour')}
+                    </span>
                   </div>
                 </Radio>
               </Radio.Group>
             </div>
 
             <div className={styles.item}>
-              <div className={styles.title}>到期设置</div>
+              <div className={styles.title}>
+                {this.t('ruleSetting.expireSet')}
+              </div>
               <Radio.Group
                 className={styles.radio}
                 onChange={this.onValueChange('isExpire')}
                 value={this.state.isExpire}
               >
-                <Radio value={1}>永久有效</Radio>
+                <Radio value={1}>{this.t('ruleSetting.expireSet')}</Radio>
                 <Radio value={2}>
                   <div className={styles.label_group}>
-                    <span className={styles.label_left}>每</span>
+                    <span className={styles.label_left}>
+                      {this.t('ruleSetting.permanentValidity')}
+                    </span>
                     <Input
-                      disabled={ this.state.isExpire === 1 }
+                      disabled={this.state.isExpire === 1}
                       onChange={this.onValueChange('expireDays')}
                       value={this.state.expireDays}
                       placeholder='365'
                     />
-                    <span className={styles.label_right}>天清除积分池所有积分</span>
+                    <span className={styles.label_right}>
+                      {this.t('ruleSetting.per')}
+                    </span>
                   </div>
                 </Radio>
               </Radio.Group>
             </div>
 
             <div className={styles.item}>
-              <div className={styles.title}>到期提醒设置</div>
+              <div className={styles.title}>
+                {this.t('ruleSetting.expirationReminderSet')}
+              </div>
               <Radio.Group
                 className={styles.radio}
                 onChange={this.onValueChange('isRemind')}
                 value={this.state.isRemind}
               >
-                <Radio value={1}>不提醒</Radio>
-                <Radio value={2}>提醒</Radio>
-                <Link>提醒设置</Link>
+                <Radio value={1}>{this.t('ruleSetting.noPrompt')}</Radio>
+                <Radio value={2}>{this.t('ruleSetting.prompt')}</Radio>
+                <Link>{this.t('ruleSetting.promptSet')}</Link>
               </Radio.Group>
             </div>
 
             <div className={styles.item}>
-              <div className={styles.title}>订单积分计算规则设置</div>
+              <div className={styles.title}>
+                {this.t('ruleSetting.pointsRuleSet')}
+              </div>
               <div className={styles.wrap}>
                 <div className={styles.label_group}>
-                  <span className={styles.label_left}>订单实付金额满</span>
+                  <span className={styles.label_left}>
+                    {this.t('ruleSetting.spentMoney')}
+                  </span>
                   <Input
-                    onChange={this.onValueChange('standardMoney', 'pointsRules')}
+                    onChange={this.onValueChange(
+                      'standardMoney',
+                      'pointsRules'
+                    )}
                     value={this.state.pointsRules.standardMoney}
                     placeholder='0'
                   />
-                  <span className={styles.label_right}>元时，</span>
+                  <span className={styles.label_right}>
+                    {this.t('ruleSetting.yuan') + ','}
+                  </span>
                 </div>
                 <div className={styles.label_group}>
-                  <span className={styles.label_left}>每消费</span>
+                  <span className={styles.label_left}>
+                    {this.t('ruleSetting.perSpent')}
+                  </span>
                   <Input
                     onChange={this.onValueChange('paidMondy', 'pointsRules')}
                     value={this.state.pointsRules.paidMondy}
                     placeholder='0'
                   />
-                  <span className={styles.label_right}>元，</span>
+                  <span className={styles.label_right}>
+                    {this.t('ruleSetting.yuan') + ','}
+                  </span>
                 </div>
                 <div className={styles.label_group}>
-                  <span className={styles.label_left}>获得</span>
+                  <span className={styles.label_left}>
+                    {this.t('ruleSetting.get')}
+                  </span>
                   <Input
                     onChange={this.onValueChange('getPoints', 'pointsRules')}
                     value={this.state.pointsRules.getPoints}
                     placeholder='0'
                   />
-                  <span className={styles.label_right}>积分；</span>
+                  <span className={styles.label_right}>
+                    {this.t('ruleSetting.points')}；
+                  </span>
                 </div>
                 <div className={styles.label_group}>
-                  <span className={styles.label_left}>每笔订单最高的</span>
+                  <span className={styles.label_left}>
+                    {this.t('ruleSetting.theHighestPerOrder')}
+                  </span>
                   <Input
                     onChange={this.onValueChange('maxPoints', 'pointsRules')}
                     value={this.state.pointsRules.maxPoints}
                     placeholder='0'
                   />
-                  <span className={styles.label_right}>积分。</span>
+                  <span className={styles.label_right}>
+                    {this.t('ruleSetting.points')}。
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className={styles.item}>
-              <div className={styles.title}>积分抵扣设置</div>
+              <div className={styles.title}>
+                {this.t('ruleSetting.deductibleSet')}
+              </div>
               <Radio.Group
                 className={styles.radio}
                 onChange={this.onValueChange('isDeduction')}
                 value={this.state.isDeduction}
               >
-                <Radio value={1}>不可抵扣</Radio>
-                <Radio value={2}>可抵扣</Radio>
-                <Link>抵扣设置</Link>
+                <Radio value={1}>{this.t('ruleSetting.non-deductible')}</Radio>
+                <Radio value={2}>{this.t('ruleSetting.deductible')}</Radio>
+                <Link>{this.t('ruleSetting.deductibleSet')}</Link>
               </Radio.Group>
             </div>
           </div>
@@ -210,10 +251,10 @@ export default class RulesSetting extends Component {
           <div className={styles.footer}>
             <div className={styles.btn_group}>
               <Button type='primary' size='large' onClick={this.submit}>
-                确定
+                {this.t('confirm')}
               </Button>
               <Button type='default' size='large'>
-                取消
+                {this.t('cancel')}
               </Button>
             </div>
           </div>
@@ -222,3 +263,5 @@ export default class RulesSetting extends Component {
     );
   }
 }
+
+export default withTranslation()(RulesSetting);

@@ -1,14 +1,16 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Breadcrumb } from 'antd';
+import { useTranslation } from 'react-i18next';
 // import Pubsub from 'pubsub-js';
 
 export default () => {
+  const { t } = useTranslation();
   const breadcrumbNameMap = {
-    '/rules-setting': '规则设置',
-    '/points-get': '积分设置',
-    '/points-get/activity-points': '活动积分',
-    '/points-get/promotion-points': '促销积分',
+    '/rules-setting': t('ruleSetting'),
+    '/points-get': t('pointSetting'),
+    '/points-get/activity-points': t('acitvityPoint'),
+    '/points-get/promotion-points': t('promotionPoint'),
   };
   // 监听路由变化 ?
   const location = useLocation();

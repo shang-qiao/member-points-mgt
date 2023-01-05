@@ -3,19 +3,22 @@ import { Table, Tag, Space, Modal, message } from 'antd';
 import { FileAddOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 import dayjs from 'dayjs';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import { getActivityList, saveActivity } from '../../api/points-setting';
 // import { TYPE_OPTIONS, STATUS_OPTIONS, PORT_OPTIONS } from '../constants/common';
 import ActivityForm from '../activity-form';
 import styles from './index.module.scss';
-const ActivityList = (props, ref) => {
+const ActivityList = forwardRef((props, ref) => {
+  const { t } = useTranslation();
   const columns = [
     {
-      title: '活动编号',
+      title: t('acitvityPoint.activityNumber'),
       dataIndex: 'no',
       width: '10%',
     },
     {
-      title: '活动类型',
+      title: t('acitvityPoint.activityType'),
       dataIndex: 'activityType',
       width: '15%',
       render: (item) => {
@@ -23,17 +26,17 @@ const ActivityList = (props, ref) => {
       },
     },
     {
-      title: '活动名称',
+      title: t('acitvityPoint.activityName'),
       dataIndex: 'activityName',
       width: '20%',
     },
     {
-      title: '有效期',
+      title: t('acitvityPoint.activityTime'),
       dataIndex: 'activityTime',
       width: '20%',
     },
     {
-      title: '活动端口',
+      title: t('acitvityPoint.activityPort'),
       dataIndex: 'activityPort',
       width: '10%',
       render: (item) => {
@@ -41,7 +44,7 @@ const ActivityList = (props, ref) => {
       },
     },
     {
-      title: '活动状态',
+      title: t('acitvityPoint.activityStatus'),
       dataIndex: 'activityStatus',
       width: '10%',
       render: (status) => {
@@ -58,20 +61,20 @@ const ActivityList = (props, ref) => {
       }
     },
     {
-      title: '操作',
+      title: t('acitvityPoint.activityType'),
       dataIndex: 'operation',
       width: '15%',
       render: (_, item) => (
         <Space size='middle'>
-          <a disabled>上线</a>
+          <a disabled>{t('acitvityPoint.activityPopup')}</a>
           <a
             onClick={() => {
               handleEdit(item);
             }}
           >
-            编辑
+            {t('edit')}
           </a>
-          <a onClick={handleDelete}>删除</a>
+          <a onClick={handleDelete}>{t('delete')}</a>
         </Space>
       ),
     },
@@ -115,10 +118,9 @@ const ActivityList = (props, ref) => {
         if (res.code === 200) {
           setIsModalOpen(false);
         }
-        console.log('value', value.activityTime[0].$d.toLocaleString());
       })
       .catch(() => {
-        message.warning('请完善信息');
+        message.warning(t('acitvityPoint.activityCompleteInfo'));
       });
   };
   const handleCancel = () => {
@@ -137,9 +139,11 @@ const ActivityList = (props, ref) => {
   const handleDelete = () => {
     const modal = Modal.confirm();
     modal.update({
-      title: '删除',
-      content: '您确定要删除活动吗？',
+      title: t('delete'),
+      content: t('acitvityPoint.activityDeleteTip'),
       onOk: deleteActivity,
+      okText: t('confirm'),
+      cancelText: t('cancel'),
       okButtonProps: { danger: true },
     });
   };
@@ -163,12 +167,11 @@ const ActivityList = (props, ref) => {
   };
 
   const getAcitvList = async() => {
-    props.changeLoading(true);
+    props.onLoadingChange(true);
     const { data: res } = await getActivityList();
-    props.changeLoading(false);
+    props.onLoadingChange(false);
     if (res.code === 200) {
       if (res.data.length > 0) {
-        console.log(res.data);
         // setDataSource(res.data);
         setDataSource((prev) => {
           // console.log('prev', prev);
@@ -186,10 +189,10 @@ const ActivityList = (props, ref) => {
   return (
     <div>
       <header className={styles.header}>
-        <h3>活动列表</h3>
+        <h3>{t('activityList')}</h3>
         <div className={styles.add_activ} onClick={addActivity}>
           <FileAddOutlined />
-          <div className={styles.label}>添加活动</div>
+          <div className={styles.label}>{t('addActivity')}</div>
         </div>
       </header>
       <main>
@@ -199,7 +202,7 @@ const ActivityList = (props, ref) => {
           dataSource={dataSource}
           pagination={{
             pageSize: 50,
-            showTotal: () => '共' + dataSource.length + '条',
+            showTotal: () => t('total') + '：' + dataSource.length + t('item'),
           }}
           scroll={{
             y: 258,
@@ -211,9 +214,9 @@ const ActivityList = (props, ref) => {
           maskClosable={false}
           // destroyOnClose={true}
           width={560}
-          title='添加活动'
-          okText='确定'
-          cancelText='取消'
+          title={t('addActivity')}
+          okText={t('confirm')}
+          cancelText={t('cancel')}
           open={isModalOpen}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -224,6 +227,9 @@ const ActivityList = (props, ref) => {
       <footer></footer>
     </div>
   );
+});
+// 使用prop-types对组件参数做类型校验
+ActivityList.propTypes = {
+  onLoadingChange: PropTypes.func.isRequired
 };
-
-export default forwardRef(ActivityList);
+export default ActivityList;

@@ -115,4 +115,17 @@
             color: #fff;
         }
     }
+
+    .lang_icon {
+        position: relative;
+        width: 30px;
+        height: 100%;
+        img {
+            position: absolute;
+            top: 50%;
+            margin-top: -50%;
+            width: 100%;
+            zoom: 0.5;
+        }
+    }
 }

@@ -1,11 +1,13 @@
 import React, { useRef, forwardRef, useState } from 'react';
 import { Form, Button, message, Spin } from 'antd';
+import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
 import ActivityForm from '../../../components/activity-form';
 import ActivityList from '../../../components/activity-list';
 import styles from './index.module.scss';
-import dayjs from 'dayjs';
 
 export default () => {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const searchAndResetBtn = (
     <Form.Item>
@@ -15,10 +17,10 @@ export default () => {
         type='primary'
         htmlType='submit'
       >
-        搜索
+        {t('search')}
       </Button>
       <Button onClick={() => handleReset()} htmlType='button'>
-        重置
+        {t('reset')}
       </Button>
     </Form.Item>
   );
@@ -69,7 +71,7 @@ export default () => {
         myRef.current.setDataSource(result);
       })
       .catch(() => {
-        message.warning('请完善信息！');
+        message.warning(t('acitvityPoint.activityCompleteInfo'));
       });
   };
   const handleReset = () => {
@@ -79,14 +81,14 @@ export default () => {
     console.log(myRef.current.dataSource);
     myRef.current.setDataSource(myRef.current.dataSource);
   };
-  const changeLoading = (isShow) => {
+  const handleLoadingChange = (isShow) => {
     setIsLoading(isShow);
   };
   return (
     <div>
       <Spin spinning={isLoading}>
         <SearchCondition ref={formRef} />
-        <ActivityList changeLoading={changeLoading} ref={myRef} />
+        <ActivityList onLoadingChange={handleLoadingChange} ref={myRef} />
       </Spin>
     </div>
   );

@@ -8,14 +8,19 @@ import {
   QuestionCircleOutlined,
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { Layout, Menu, Dropdown, Space, Badge } from 'antd';
+import { Layout, Menu, Dropdown, Space, Badge, Button } from 'antd';
+import i18n from 'i18next';
+import { withTranslation } from 'react-i18next';
 import Crumbs from '../breadcrumb';
 // import PubSub from 'pubsub-js';
 import styles from './index.module.scss';
+import zhImgUrl from '../../images/zh.png';
+import enImgUrl from '../../images/en.png';
 
-export default class HomeLayout extends Component {
+class HomeLayout extends Component {
   constructor(props) {
     super(props);
+    this.t = props.t;
     this.myRefs = React.createRef();
     this.state = {
       username: localStorage.getItem('username'),
@@ -29,29 +34,29 @@ export default class HomeLayout extends Component {
     location.href = '/';
   };
 
+  switchLang = () => {
+    const lang = i18n.language;
+    if (lang === 'zh') {
+      i18n.changeLanguage('en');
+    } else {
+      i18n.changeLanguage('zh');
+    }
+  };
+
   render() {
     const { Header, Content, Sider } = Layout;
-
     const items = [
       {
         key: '1',
         icon: React.createElement(UserOutlined),
-        label: (
-          <a
-            target='_blank'
-            rel='noopener noreferrer'
-            href='https://www.antgroup.com'
-          >
-            个人中心
-          </a>
-        ),
+        label: <a onClick={this.switchLang}>{this.t('personalCenter')}</a>,
       },
       {
         key: '2',
         icon: React.createElement(LogoutOutlined),
         label: (
           <a rel='noopener noreferrer' onClick={this.logout}>
-            退出
+            {this.t('logout')}
           </a>
         ),
       },
@@ -61,20 +66,28 @@ export default class HomeLayout extends Component {
       {
         key: 'rules-setting',
         icon: React.createElement(VideoCameraOutlined),
-        label: <Link to='/rules-setting'>规则设置</Link>,
+        label: <Link to='/rules-setting'>{this.t('ruleSetting')}</Link>,
       },
       {
         key: 'points-get',
         icon: React.createElement(BarChartOutlined),
-        label: '积分设置',
+        label: this.t('pointSetting'),
         children: [
           {
             key: 'points-get/activity-points',
-            label: <Link to='/points-get/activity-points'>活动积分</Link>,
+            label: (
+              <Link to='/points-get/activity-points'>
+                {this.t('acitvityPoint')}
+              </Link>
+            ),
           },
           {
             key: 'points-get/promotion-points',
-            label: <Link to='/points-get/promotion-points'>促销积分</Link>,
+            label: (
+              <Link to='/points-get/promotion-points'>
+                {this.t('promotionPoint')}
+              </Link>
+            ),
           },
         ],
       },
@@ -107,6 +120,9 @@ export default class HomeLayout extends Component {
                 </div>
               </Dropdown>
             </Space>
+            <div className={styles.lang_icon} onClick={this.switchLang}>
+              <img src={i18n.language === 'zh' ? zhImgUrl : enImgUrl}></img>
+            </div>
           </div>
         </Header>
         <Sider>
@@ -125,11 +141,7 @@ export default class HomeLayout extends Component {
             <Crumbs />
           </Header>
           <Content>
-            <div
-              className='main'
-            >
-              {this.props.childElement}
-            </div>
+            <div className='main'>{this.props.children}</div>
           </Content>
         </Layout>
       </Layout>
@@ -152,3 +164,5 @@ export default class HomeLayout extends Component {
     // });
   };
 }
+
+export default withTranslation()(HomeLayout);

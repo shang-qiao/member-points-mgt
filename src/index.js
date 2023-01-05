@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Routes from './router';
 import { Provider } from 'react-redux';
 import store from './store';
+import './i18n';
 import './index.css';
 import './mock/rules-setting';
 import './mock/points-setting';

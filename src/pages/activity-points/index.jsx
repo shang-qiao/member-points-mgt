@@ -3,8 +3,10 @@ import { Tabs } from 'antd';
 import RoutineActivity from './routine-activity';
 import CustomActivity from './custom-activity';
 import styles from './index.module.scss';
+import { useTranslation } from 'react-i18next';
 
-export default function index() {
+export default () => {
+  const { t }  = useTranslation();
   const onChange = (key) => {
     console.log(key);
   };
@@ -12,16 +14,17 @@ export default function index() {
     <div>
       <Tabs
         className='activ-tabs'
+        destroyInactiveTabPane={true}
         onChange={onChange}
         defaultActiveKey='1'
         items={[
           {
-            label: '常规活动',
+            label: t('routineActivity'),
             key: '1',
             children: <RoutineActivity />,
           },
           {
-            label: '自定义活动1',
+            label: t('customizedActivity'),
             key: '2',
             children: <CustomActivity />,
           }
@@ -29,7 +32,7 @@ export default function index() {
       />
     </div>
   );
-}
+};
 
 // class ActivityPoints extends Component {
 

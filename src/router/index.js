@@ -17,7 +17,9 @@ export default () => (
       path='/rules-setting'
       element={
         <AuthRoute>
-          <HomeLayout childElement={<RulesSetting />}> </HomeLayout>
+          <HomeLayout>
+            <RulesSetting />
+          </HomeLayout>
         </AuthRoute>
       }
     />
@@ -29,7 +31,9 @@ export default () => (
       path='/points-get/activity-points'
       element={
         <AuthRoute>
-          <HomeLayout childElement={<ActivityPoints />}> </HomeLayout>
+          <HomeLayout>
+            <ActivityPoints />
+          </HomeLayout>
         </AuthRoute>
       }
     />
@@ -37,7 +41,9 @@ export default () => (
       path='/points-get/promotion-points'
       element={
         <AuthRoute>
-          <HomeLayout childElement={<PromotionPoints />}> </HomeLayout>
+          <HomeLayout>
+            <PromotionPoints />
+          </HomeLayout>
         </AuthRoute>
       }
     />

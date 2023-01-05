@@ -1,50 +1,52 @@
 import React from 'react';
 import { Form, Input, Select, DatePicker } from 'antd';
 import styles from './index.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const { RangePicker } = DatePicker;
 
 export default (props) => {
+  const { t } = useTranslation();
   const [form] = Form.useForm();
   const portOptions = [
     {
-      label: 'App端',
+      label: t('acitvityPoint.app'),
       value: 'app',
     },
     {
-      label: '小程序端',
+      label: t('acitvityPoint.miniProgram'),
       value: 'miniProgram',
     },
     {
-      label: 'PC端',
+      label: t('acitvityPoint.pc'),
       value: 'pc',
     },
   ];
   const typeOptions = [
     {
-      label: '注册',
+      label: t('acitvityPoint.register'),
       value: 'register',
     },
     {
-      label: '完善个人信息',
+      label: t('acitvityPoint.completeInfo'),
       value: 'completeInfo',
     },
     {
-      label: '首次签到',
+      label: t('acitvityPoint.firstSign'),
       value: 'firstSign',
     },
   ];
   const statusOptions = [
     {
-      label: '已上线',
+      label: t('acitvityPoint.online'),
       value: 'online',
     },
     {
-      label: '未上线',
+      label: t('acitvityPoint.offline'),
       value: 'offline',
     },
     {
-      label: '已过期',
+      label: t('acitvityPoint.expired'),
       value: 'expired',
     },
   ];
@@ -80,10 +82,11 @@ export default (props) => {
       <Form.Item
         colon={false}
         name='activityName'
-        label='活动名称'
+        label={t('acitvityPoint.activityName')}
         rules={[
           {
             required: true,
+            message: t('acitvityPoint.selectActivityName')
           },
         ]}
       >
@@ -93,12 +96,12 @@ export default (props) => {
       <Form.Item
         colon={false}
         name='activityTime'
-        label='活动时间'
+        label={t('acitvityPoint.activityTime')}
         rules={[
           {
             type: 'array',
             required: true,
-            message: 'Please select time!',
+            message: t('acitvityPoint.selectActivityTime'),
           },
         ]}
       >
@@ -108,15 +111,16 @@ export default (props) => {
       <Form.Item
         colon={false}
         name='activityStatus'
-        label='活动状态'
+        label={t('acitvityPoint.activityStatus')}
         rules={[
           {
             required: true,
+            message: t('acitvityPoint.selectActivityStatus')
           },
         ]}
       >
         <Select
-          placeholder='请选择活动状态'
+          placeholder={t('acitvityPoint.selectActivityStatus')}
           onChange={onGenderChange}
           allowClear
           options={statusOptions}
@@ -127,15 +131,16 @@ export default (props) => {
       <Form.Item
         colon={false}
         name='activityPort'
-        label='活动端口'
+        label={t('acitvityPoint.activityPort')}
         rules={[
           {
             required: true,
+            message: t('acitvityPoint.selectActivityPort')
           },
         ]}
       >
         <Select
-          placeholder='请选择活动端口'
+          placeholder={t('acitvityPoint.selectActivityPort')}
           onChange={onGenderChange}
           allowClear
           options={portOptions}
@@ -144,22 +149,22 @@ export default (props) => {
       <Form.Item
         colon={false}
         name='activityType'
-        label='活动类型'
+        label={t('acitvityPoint.activityType')}
         rules={[
           {
             required: true,
+            message: t('acitvityPoint.selectActivityType')
           },
         ]}
       >
         <Select
-          placeholder='请选择活动类型'
+          placeholder={t('acitvityPoint.selectActivityType')}
           onChange={onGenderChange}
           allowClear
           options={typeOptions}
         >
         </Select>
       </Form.Item>
-
       {props.slot}
     </Form>
   );
