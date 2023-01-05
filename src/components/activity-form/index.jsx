@@ -86,11 +86,11 @@ export default (props) => {
         rules={[
           {
             required: true,
-            message: t('acitvityPoint.selectActivityName')
+            message: t('acitvityPoint.inputActivityName'),
           },
         ]}
       >
-        <Input />
+        <Input placeholder={t('acitvityPoint.inputActivityName')} />
       </Form.Item>
 
       <Form.Item
@@ -115,7 +115,7 @@ export default (props) => {
         rules={[
           {
             required: true,
-            message: t('acitvityPoint.selectActivityStatus')
+            message: t('acitvityPoint.selectActivityStatus'),
           },
         ]}
       >
@@ -124,8 +124,7 @@ export default (props) => {
           onChange={onGenderChange}
           allowClear
           options={statusOptions}
-        >
-        </Select>
+        ></Select>
       </Form.Item>
 
       <Form.Item
@@ -135,7 +134,7 @@ export default (props) => {
         rules={[
           {
             required: true,
-            message: t('acitvityPoint.selectActivityPort')
+            message: t('acitvityPoint.selectActivityPort'),
           },
         ]}
       >
@@ -153,7 +152,7 @@ export default (props) => {
         rules={[
           {
             required: true,
-            message: t('acitvityPoint.selectActivityType')
+            message: t('acitvityPoint.selectActivityType'),
           },
         ]}
       >
@@ -162,8 +161,7 @@ export default (props) => {
           onChange={onGenderChange}
           allowClear
           options={typeOptions}
-        >
-        </Select>
+        ></Select>
       </Form.Item>
       {props.slot}
     </Form>

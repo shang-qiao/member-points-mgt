@@ -58,7 +58,7 @@ export default {
   'acitvityPoint.activityStatus': 'Activity Status',
   'acitvityPoint.activityPort': 'Activity Port',
   'acitvityPoint.activityType': 'Activity Type',
-  'acitvityPoint.selectActivityName': 'Please select Activity Name!',
+  'acitvityPoint.inputActivityName': 'Please input Activity Name!',
   'acitvityPoint.selectActivityTime': 'Please select Activity Time!',
   'acitvityPoint.selectActivityStatus': 'Please select Activity Status!',
   'acitvityPoint.selectActivityPort': 'Please select Activity Port!',

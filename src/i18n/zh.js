@@ -58,7 +58,7 @@ export default {
   'acitvityPoint.activityStatus': '活动状态',
   'acitvityPoint.activityPort': '活动端口',
   'acitvityPoint.activityType': '活动类型',
-  'acitvityPoint.selectActivityName': '请选择活动名称！',
+  'acitvityPoint.inputActivityName': '请输入活动名称！',
   'acitvityPoint.selectActivityTime': '请选择活动时间！',
   'acitvityPoint.selectActivityStatus': '请选择活动状态！',
   'acitvityPoint.selectActivityPort': '请选择活动端口！',
