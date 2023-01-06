@@ -38,3 +38,15 @@ npm run build (正式环境的打包部署)
 - [√] 退出登录
 - [√] redux 完整示范
 - [√] mockjs 模拟后端接口返回数据
+
+## 问题和经验总结
+
+【docs目录】
+
+- create-react-app 脚手架搭建项目
+- antd 组件和样式按需导入
+- react-router 如何配置和使用？
+- react-redux 如何配置和使用？
+- mockjs 如何配置和使用？
+- 国际化组件 i18next 如何配置和使用？
+- ...
