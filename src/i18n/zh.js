@@ -36,6 +36,7 @@ export default {
   'ruleSetting.expireSet': '到期设置',
   'ruleSetting.permanentValidity': '永久有效',
   'ruleSetting.per': '每',
+  'ruleSetting.clearPoints': '清除积分池所有积分',
   'ruleSetting.expirationReminderSet': '到期提醒设置',
   'ruleSetting.noPrompt': '不提醒',
   'ruleSetting.prompt': '提醒',

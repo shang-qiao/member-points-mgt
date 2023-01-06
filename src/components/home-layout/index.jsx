@@ -49,7 +49,7 @@ class HomeLayout extends Component {
       {
         key: '1',
         icon: React.createElement(UserOutlined),
-        label: <a onClick={this.switchLang}>{this.t('personalCenter')}</a>,
+        label: <a>{this.t('personalCenter')}</a>,
       },
       {
         key: '2',

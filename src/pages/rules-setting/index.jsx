@@ -134,11 +134,11 @@ class RulesSetting extends Component {
                 onChange={this.onValueChange('isExpire')}
                 value={this.state.isExpire}
               >
-                <Radio value={1}>{this.t('ruleSetting.expireSet')}</Radio>
+                <Radio value={1}>{this.t('ruleSetting.permanentValidity')}</Radio>
                 <Radio value={2}>
                   <div className={styles.label_group}>
                     <span className={styles.label_left}>
-                      {this.t('ruleSetting.permanentValidity')}
+                      {this.t('ruleSetting.per')}
                     </span>
                     <Input
                       disabled={this.state.isExpire === 1}
@@ -147,7 +147,7 @@ class RulesSetting extends Component {
                       placeholder='365'
                     />
                     <span className={styles.label_right}>
-                      {this.t('ruleSetting.per')}
+                      {this.t('ruleSetting.clearPoints')}
                     </span>
                   </div>
                 </Radio>
@@ -250,11 +250,8 @@ class RulesSetting extends Component {
 
           <div className={styles.footer}>
             <div className={styles.btn_group}>
-              <Button type='primary' size='large' onClick={this.submit}>
+              <Button type='primary' onClick={this.submit}>
                 {this.t('confirm')}
-              </Button>
-              <Button type='default' size='large'>
-                {this.t('cancel')}
               </Button>
             </div>
           </div>

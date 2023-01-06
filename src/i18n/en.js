@@ -36,6 +36,7 @@ export default {
   'ruleSetting.expireSet': 'Expire Setting',
   'ruleSetting.permanentValidity': 'Permanent Validity',
   'ruleSetting.per': 'Per',
+  'ruleSetting.clearPoints': 'clear all integrals in the integral pool',
   'ruleSetting.expirationReminderSet': 'Expiration Reminder Setting',
   'ruleSetting.noPrompt': 'No Prompt',
   'ruleSetting.prompt': 'Prompt',
