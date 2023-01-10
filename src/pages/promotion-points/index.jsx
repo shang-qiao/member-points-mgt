@@ -1,48 +1,60 @@
-import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 // import { setUsername } from '../../store/actions/user';
 import { Tabs } from 'antd';
+import { useEffect } from 'react';
+import { useLocation, useParams } from 'react-router';
+import { useSearchParams } from 'react-router-dom';
 
-class PromotionPoints extends Component {
-  constructor(props) {
-    super(props);
+export default (props) => {
+  const location = useLocation();
+  const [ searchParams ] = useSearchParams();
+  const params = useParams();
+  useEffect(()=>{
+    // useNaviagte()('/points-get/promotion-points', { state: { name: 'shangqiao' } })
+    console.log('location', location.state);
+
+    // navigate('/points-get/promotion-points?name=shangqiao&age=20');
+    // console.log('searchParams', searchParams.getAll('name'));
+
+    // navigate('/points-get/promotion-points/shangqiao');
+    // console.log('params', params);
+
     console.log(props);
-  }
+  }, []);
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     console.log(e);
   };
 
-  render() {
-    return (
-      <div>
-        <Tabs
-          size='large'
-          defaultActiveKey='1'
-          onChange={this.handleChange}
-          items={[
-            {
-              label: 'Tab 11',
-              key: '11',
-              children: 'Content of Tab Pane 1',
-            },
-            {
-              label: 'Tab 22',
-              key: '2',
-              children: 'Content of Tab Pane 2',
-            },
-            {
-              label: 'Tab 33',
-              key: '3',
-              children: 'Content of Tab Pane 3',
-            },
-          ]}
-        />
-      </div>
-    );
-  }
-}
-export default PromotionPoints;
+
+  return (
+    <div>
+      <Tabs
+        size='large'
+        defaultActiveKey='1'
+        onChange={handleChange}
+        items={[
+          {
+            label: 'Tab 11',
+            key: '11',
+            children: 'Content of Tab Pane 1',
+          },
+          {
+            label: 'Tab 22',
+            key: '2',
+            children: 'Content of Tab Pane 2',
+          },
+          {
+            label: 'Tab 33',
+            key: '3',
+            children: 'Content of Tab Pane 3',
+          },
+        ]}
+      />
+    </div>
+  );
+  
+};
 
 // function mapStateToProps(state) {
 //   return {

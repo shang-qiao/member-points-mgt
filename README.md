@@ -41,7 +41,7 @@ npm run build (正式环境的打包部署)
 
 ## 问题和经验总结
 
-【docs目录】
+【docs 目录】
 
 - create-react-app 脚手架搭建项目
 - antd 组件和样式按需导入

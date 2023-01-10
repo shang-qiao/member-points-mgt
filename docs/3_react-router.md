@@ -42,3 +42,4 @@ import Routes from "./router";
    
 2. 
 
+3. 注意：withRouter在react-router-dom@6中被删除。
