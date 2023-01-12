@@ -6,6 +6,7 @@ import RulesSetting from '../pages/rules-setting';
 import ActivityPoints from '../pages/activity-points';
 import PromotionPoints from '../pages/promotion-points';
 import HomeLayout from '../components/home-layout';
+import Parent from '../components/hooks-test/parent';
 import { AuthRoute } from '../utils/AuthRoute';
 
 export default () => (
@@ -45,6 +46,12 @@ export default () => (
             <PromotionPoints />
           </HomeLayout>
         </AuthRoute>
+      }
+    />
+    <Route
+      path='/hooks-test'
+      element={
+        <Parent />
       }
     />
   </Routes>
