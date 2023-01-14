@@ -82,8 +82,8 @@ export default class Login extends Component {
   }
 
   componentDidMount() {
-    // [question]函数式组件中好像用不了cmd?
-    // [question]useNavigate,useLocation好像只能在函数式组件中使用?
+    // [question]函数式组件中好像用不了cmd? √
+    // [question]useNavigate,useLocation好像只能在函数式组件中使用? √
     if (localStorage.getItem('token')) {
       // 已经登录，跳转首页
       window.location.href = '/';

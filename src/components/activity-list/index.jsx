@@ -5,11 +5,12 @@ import { useState } from 'react';
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { getActivityList, saveActivity } from '../../api/points-setting';
+import { getActivityList, saveActivity, deleteActiv } from '../../api/points-setting';
 // import { TYPE_OPTIONS, STATUS_OPTIONS, PORT_OPTIONS } from '../constants/common';
 import ActivityForm from '../activity-form';
 import styles from './index.module.scss';
 const ActivityList = forwardRef((props, ref) => {
+  const [editedKey, setEditedKey] = useState(-1);
   const { t } = useTranslation();
   const columns = [
     {
@@ -74,7 +75,7 @@ const ActivityList = forwardRef((props, ref) => {
           >
             {t('edit')}
           </a>
-          <a onClick={handleDelete}>{t('delete')}</a>
+          <a onClick={() => handleDelete(item.key)}>{t('delete')}</a>
         </Space>
       ),
     },
@@ -101,29 +102,41 @@ const ActivityList = forwardRef((props, ref) => {
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
+  const handleAddAcitvOk = () => {
     // 提交表单
     formRef.current
       .validateFields()
       .then(async(value) => {
+        console.log('提交表单', value);
         const { activityTime, ...rest } = value;
         // 校验通过，调用新增接口，成功添加后关闭弹框
-        const { data: res } = await saveActivity({
+        let params = {
+          key: editedKey,
+          no: editedKey,
           activityTime:
             activityTime[0].$d.toLocaleString() +
             '-' +
             activityTime[1].$d.toLocaleString(),
           ...rest,
-        });
+        };
+        if (editedKey !== -1) {
+
+        }
+        console.log('params', params);
+        const { data: res } = await saveActivity(params);
         if (res.code === 200) {
           setIsModalOpen(false);
+          getAcitvList();
+          if (editedKey !== -1) {
+            setEditedKey(-1);
+          }
         }
       })
       .catch(() => {
         message.warning(t('acitvityPoint.activityCompleteInfo'));
       });
   };
-  const handleCancel = () => {
+  const handleAddActivCancel = () => {
     setIsModalOpen(false);
     // 不加好像也会重置表单信息，及错误提示
     // formRef.current.resetFields();
@@ -136,24 +149,29 @@ const ActivityList = forwardRef((props, ref) => {
   const addActivity = () => {
     showModal();
   };
-  const handleDelete = () => {
+  const handleDelete = (key) => {
     const modal = Modal.confirm();
     modal.update({
       title: t('delete'),
       content: t('acitvityPoint.activityDeleteTip'),
-      onOk: deleteActivity,
+      onOk: () => deleteActivity(key),
       okText: t('confirm'),
       cancelText: t('cancel'),
       okButtonProps: { danger: true },
     });
   };
-  const deleteActivity = () => {
-    console.log('delete ok');
+  const deleteActivity = async(key) => {
+    props.onLoadingChange(true);
     // 调删除接口
-    // 删除成功后，关闭弹框
+    const { data: res } = await deleteActiv(key);
+    props.onLoadingChange(false);
+    if (res.code === 200) {
+      if (res.result) {
+        getAcitvList();
+      }
+    }
   };
-  const handleEdit = (item) => {
-    showModal();
+  const writeBack = (item) => {
     const { activityTime, ...rest } = item;
     setTimeout(() => {
       formRef.current.setFieldsValue({
@@ -164,6 +182,12 @@ const ActivityList = forwardRef((props, ref) => {
         ],
       });
     }, 0);
+  };
+  const handleEdit = (item) => {
+    setEditedKey(item.key);
+    console.log('prev_editedKey', editedKey);
+    showModal();
+    writeBack(item);
   };
 
   const getAcitvList = async() => {
@@ -182,6 +206,7 @@ const ActivityList = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
+    // 第二个参数为空，不依赖props和state，所以首次执行一次。类似于compoentDidMount。
     // 获取表格数据
     getAcitvList();
   }, []);
@@ -218,8 +243,8 @@ const ActivityList = forwardRef((props, ref) => {
           okText={t('confirm')}
           cancelText={t('cancel')}
           open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
+          onOk={handleAddAcitvOk}
+          onCancel={handleAddActivCancel}
         >
           <ModalForm ref={formRef} />
         </Modal>

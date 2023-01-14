@@ -129,7 +129,9 @@ function Counter() {
 }
 ```
 
-如果 Reducer Hook 的返回值与当前 state 相同，React 将跳过子组件的渲染及副作用的执行。（React 使用 Object.is 比较算法 来比较 state）。 3. useCallback
+如果 Reducer Hook 的返回值与当前 state 相同，React 将跳过子组件的渲染及副作用的执行。（React 使用 Object.is 比较算法 来比较 state）。 
+
+3. useCallback
 
 ```javascript
 const memoizedCallback = useCallback(() => {
@@ -138,7 +140,7 @@ const memoizedCallback = useCallback(() => {
 // 返回一个 memoized 回调函数。
 ```
 
-把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，该回调函数仅在某个依赖项改变时才会更新。当你把回调函数传递给经过优化的并使用引用相等性去避免非必要渲染（例如 shouldComponentUpdate）的子组件时，它将非常有用。
+把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，该回调函数`仅在某个依赖项改变时才会更新`。当你把回调函数传递给经过优化的并使用引用相等性去避免非必要渲染（例如 shouldComponentUpdate）的子组件时，它将非常有用。
 
 `useCallback(fn, deps) 相当于 useMemo(() => fn, deps)。`
 
@@ -174,6 +176,7 @@ FancyInput = forwardRef(FancyInput);
 在本例中，渲染 <FancyInput ref={inputRef} /> 的父组件可以调用 inputRef.current.focus()。
 
 7. useLayoutEffect
-useLayoutEffect和useEffect区别：
-- useEffect会在渲染的内容更新到DOM上后执行,不会阻塞DOM的更新（常用）（异步）；
-- useLayoutEffect会在渲染的内容更新到DOM上之前进行,会阻塞DOM更新（对渲染结果有影响时才用）（同步）。
+   useLayoutEffect 和 useEffect 区别：
+
+- useEffect 会在渲染的内容更新到 DOM 上后执行,不会阻塞 DOM 的更新（常用）（异步）；
+- useLayoutEffect 会在渲染的内容更新到 DOM 上之前进行,会阻塞 DOM 更新（对渲染结果有影响时才用）（同步）。
