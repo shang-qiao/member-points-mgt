@@ -36,7 +36,6 @@ function deleteByActivId(id, newData) {
   for (let i = 0; i < data.length; i++) {
     if (data[i].key.toString() === id.toString()) {
       if (newData) {
-        console.log('new', i, newData);
         data.splice(i, 1, newData);
       } else {
         data.splice(i, 1);
@@ -60,21 +59,20 @@ Mock.mock('/points-setting/activ/add', 'post', (options) => {
   if (verifyToken()) {
     // 继续业务操作，返回成功或失败
     const activityData = JSON.parse(options.body);
+    activityData.activityTime =
+    dayjs(activityData.activityTime.split('-')[0]).format('YYYY/MM/DD') +
+    ' - ' +
+    dayjs(activityData.activityTime.split('-')[1]).format('YYYY/MM/DD');
     console.log('MOCK接收到的数据', activityData);
     if (activityData.key === -1) {
       // add
       activityData['key'] = data.length + 1;
       activityData['no'] = data.length + 1;
-      updateActivity(activityData);
+      // updateActivity(activityData);
       data.push(activityData);
     } else {
       // edit
-      activityData.activityTime =
-      dayjs(activityData.activityTime.split('-')[0]).format('YYYY-MM-DD') +
-      ' - ' +
-      dayjs(activityData.activityTime.split('-')[1]).format('YYYY-MM-DD');
       deleteByActivId(activityData.key, activityData);
-
     }
     return resData(true, 200, 'success!');
   }

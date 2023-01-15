@@ -120,6 +120,9 @@ export default (props) => {
         ]}
       >
         <Select
+          // 把每个选项的 label 包装到 value 中。
+          // 通过getFields()和validateFields().then()获取到的value都是 { label: , value: } 格式
+          labelInValue={true}
           placeholder={t('acitvityPoint.selectActivityStatus')}
           onChange={onGenderChange}
           allowClear
@@ -139,6 +142,7 @@ export default (props) => {
         ]}
       >
         <Select
+          labelInValue={true}
           placeholder={t('acitvityPoint.selectActivityPort')}
           onChange={onGenderChange}
           allowClear
@@ -157,6 +161,7 @@ export default (props) => {
         ]}
       >
         <Select
+          labelInValue={true}
           placeholder={t('acitvityPoint.selectActivityType')}
           onChange={onGenderChange}
           allowClear

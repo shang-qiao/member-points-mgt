@@ -119,10 +119,6 @@ const ActivityList = forwardRef((props, ref) => {
             activityTime[1].$d.toLocaleString(),
           ...rest,
         };
-        if (editedKey !== -1) {
-
-        }
-        console.log('params', params);
         const { data: res } = await saveActivity(params);
         if (res.code === 200) {
           setIsModalOpen(false);
@@ -185,7 +181,6 @@ const ActivityList = forwardRef((props, ref) => {
   };
   const handleEdit = (item) => {
     setEditedKey(item.key);
-    console.log('prev_editedKey', editedKey);
     showModal();
     writeBack(item);
   };
