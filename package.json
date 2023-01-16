@@ -66,6 +66,7 @@
     ]
   },
   "devDependencies": {
+    "http-proxy-middleware": "^2.0.6",
     "mockjs": "^1.1.0"
   }
 }
