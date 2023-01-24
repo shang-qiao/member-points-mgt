@@ -2,13 +2,21 @@ import React, { Component } from 'react';
 import { Button, Form, Input, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import styles from './index.module.scss';
-import { login } from '../../api/user';
+import { getPubKey ,login } from '../../api/user';
 import { t } from 'i18next';
+import { encrypt, decrypt } from '../../utils/rsaEncrypt';
 
 export default class Login extends Component {
   onFinish = async(values) => {
-    // 调用登录接口
-    const { data: res } = await login(values);
+    // 1. 获取公钥
+    const publicKey = await this.getPublicKey();
+    console.log('pk', publicKey);
+    // 2. 对密码加密
+    const encryptPwd = encrypt(publicKey, values.password);
+    const loginInfo = { username: values.username, password: encryptPwd };
+    console.log('encryptPwd', loginInfo.password);
+    // 3. 调用登录接口，传输加密密码
+    const { data: res } = await login(loginInfo);
     if (res.code === 200) {
       // 登录成功，跳转页面
       message.success(t('loginSuccessTip'));
@@ -19,6 +27,11 @@ export default class Login extends Component {
     } else {
       message.error(t('loginFailedTip'));
     }
+  };
+
+  getPublicKey = async() => {
+    const { data: res } = await getPubKey();
+    return res.data.publicKey;
   };
 
   render() {

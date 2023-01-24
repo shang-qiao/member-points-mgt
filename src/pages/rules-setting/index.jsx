@@ -44,6 +44,7 @@ class RulesSetting extends Component {
         };
       }
       this.setState(state, () => {
+        // 放在回调函数中
         // 状态更新完毕,界面也更新后(render调用后)才被调用
         // console.log(this.state);
       });
@@ -213,7 +214,7 @@ class RulesSetting extends Component {
                     placeholder='0'
                   />
                   <span className={styles.label_right}>
-                    {this.t('ruleSetting.points')}；
+                    {this.t('ruleSetting.points')}
                   </span>
                 </div>
                 <div className={styles.label_group}>

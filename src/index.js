@@ -7,8 +7,8 @@ import store from './store';
 import './i18n';
 import './index.css';
 // 注释 => 关闭mock
-import './mock/rules-setting';
-import './mock/points-setting';
+// import './mock/rules-setting';
+// import './mock/points-setting';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

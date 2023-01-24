@@ -45,16 +45,6 @@ function deleteByActivId(id, newData) {
   }
 }
 
-function updateActivity(obj) {
-  findElementAndReplace(obj, 'TYPE', 'activityType');
-  findElementAndReplace(obj, 'PORT', 'activityPort');
-  findElementAndReplace(obj, 'STATUS', 'activityStatus');
-  obj.activityTime =
-    dayjs(obj.activityTime.split('-')[0]).format('YYYY-MM-DD') +
-    ' - ' +
-    dayjs(obj.activityTime.split('-')[1]).format('YYYY-MM-DD');
-}
-
 Mock.mock('/points-setting/activ/add', 'post', (options) => {
   if (verifyToken()) {
     // 继续业务操作，返回成功或失败
@@ -68,7 +58,6 @@ Mock.mock('/points-setting/activ/add', 'post', (options) => {
       // add
       activityData['key'] = data.length + 1;
       activityData['no'] = data.length + 1;
-      // updateActivity(activityData);
       data.push(activityData);
     } else {
       // edit
