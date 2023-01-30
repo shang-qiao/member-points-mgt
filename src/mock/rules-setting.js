@@ -44,23 +44,30 @@ Mock.mock('/rules-setting/get', 'get', () => {
   return resData(false, 611, 'expired token!');
 });
 
+Mock.mock('/public_key', 'get', () => {
+  return {
+    code: 200,
+    data: {
+      publicKey: 'xxxxxxxxxxxxxxxx',
+    },
+  };
+});
+
 Mock.mock('/login', 'post', (options) => {
   const { username, password } = JSON.parse(options.body);
-  const isConsistent = bcrypt.compareSync('12345', password);
+  // 1. 使用私钥对密文密码解密，得到明文密码
+  // 2. 和数据库中密码进行比较
+  const isConsistent = true;
   if (username === 'admin' && isConsistent) {
     // 生成jwt令牌，去掉敏感信息
     // 登录成功后，存储token(里面包含了用户的身份信息)
     // token过期时间由服务端控制，过期了，需要重新登录获取
     // 用户登录成功，颁发2小时有效期的token；
-    const payload = { username: loginInfo.username };
-    const token = jwt.sign(payload, jwtCfg.jwtSecretKey, {
-      expiresIn: '2h',
-    });
-    res.json(resData(true, 200, 'success!', token));
-  } else {
-    // 用户名密码校验失败
-    res.json(resData(false, 610, 'username or password is incorrect!'));
+    const token = 'zzzzzzzzzzzzzzzzzzzzzz';
+    return resData(true, 200, 'success!', token);
   }
+  // 用户名密码校验失败
+  return resData(false, 610, 'username or password is incorrect!');
 });
 
 function resData(result, code, msg, token) {

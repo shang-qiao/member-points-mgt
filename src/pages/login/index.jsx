@@ -4,17 +4,15 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import styles from './index.module.scss';
 import { getPubKey ,login } from '../../api/user';
 import { t } from 'i18next';
-import { encrypt, decrypt } from '../../utils/rsaEncrypt';
+import { encrypt } from '../../utils/rsaEncrypt';
 
 export default class Login extends Component {
   onFinish = async(values) => {
     // 1. 获取公钥
     const publicKey = await this.getPublicKey();
-    console.log('pk', publicKey);
-    // 2. 对密码加密
+    // 2. 对密码进行RSA非对称加密，保证敏感信息在传输过程中不被泄露
     const encryptPwd = encrypt(publicKey, values.password);
     const loginInfo = { username: values.username, password: encryptPwd };
-    console.log('encryptPwd', loginInfo.password);
     // 3. 调用登录接口，传输加密密码
     const { data: res } = await login(loginInfo);
     if (res.code === 200) {
@@ -23,6 +21,7 @@ export default class Login extends Component {
       // token存入localstorage
       localStorage.setItem('token', res.token);
       localStorage.setItem('username', values.username);
+      // 跳转主页
       window.location.href = '/';
     } else {
       message.error(t('loginFailedTip'));

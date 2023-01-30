@@ -2,10 +2,12 @@ import React from 'react';
 import { Form, Input, Select, DatePicker } from 'antd';
 import styles from './index.module.scss';
 import { useTranslation } from 'react-i18next';
+import useLog from '../../hooks/useLog';
 
 const { RangePicker } = DatePicker;
 
 export default (props) => {
+  useLog();
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const portOptions = [

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 // 公共属性设置
 const instance = axios.create({
   //【坑】 如果 baseURL有值，则会以baseURL的地址请求为主，mock不会拦截。
-  baseURL: 'api',
+  // baseURL: '/api',
   timeout: 3000,
   // headers: {
   //   'Content-Type': 'application/x-www-urlencoded'

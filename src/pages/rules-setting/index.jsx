@@ -26,7 +26,7 @@ class RulesSetting extends Component {
     };
   }
 
-  // 函数柯里化方式接受函数
+  // 函数柯里化方式接受参数
   onValueChange = (key, obj) => {
     return (e) => {
       let state = null;
@@ -75,7 +75,6 @@ class RulesSetting extends Component {
     this.showLoading(false);
     if (res.code === 200) {
       // 数据回显
-      console.log(res);
       this.setState(res.data);
     } else {
       message.error(this.t('ruleSetting.setQueryFailed'), 1);

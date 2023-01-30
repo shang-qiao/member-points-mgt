@@ -1,11 +1,15 @@
 import { JSEncrypt } from 'jsencrypt/bin/jsencrypt';
 
-// 加密
+/**
+ * 加密
+ * @param { 公钥 } publicKey
+ * @param { 待加密内容 } txt
+ * @returns { 加密后内容 }
+ */
 export function encrypt(publicKey, txt) {
   const encryptor = new JSEncrypt();
-  encryptor.setPublicKey(publicKey); // 设置公钥
-  const en = encryptor.encrypt(txt);
-  console.log('en', en);
-  return en; // 对需要加密的数据进行加密
+  // 设置公钥
+  encryptor.setPublicKey(publicKey);
+  // 对需要加密的数据进行加密
+  return encryptor.encrypt(txt);
 }
-

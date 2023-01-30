@@ -9,6 +9,7 @@ import { getActivityList, saveActivity, deleteActiv } from '../../api/points-set
 // import { TYPE_OPTIONS, STATUS_OPTIONS, PORT_OPTIONS } from '../constants/common';
 import ActivityForm from '../activity-form';
 import styles from './index.module.scss';
+
 const ActivityList = forwardRef((props, ref) => {
   const [editedKey, setEditedKey] = useState(-1);
   const { t } = useTranslation();
@@ -191,9 +192,7 @@ const ActivityList = forwardRef((props, ref) => {
     props.onLoadingChange(false);
     if (res.code === 200) {
       if (res.data.length > 0) {
-        // setDataSource(res.data);
-        setDataSource((prev) => {
-          // console.log('prev', prev);
+        setDataSource(() => {
           return res.data;
         });
       }

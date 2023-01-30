@@ -7,6 +7,8 @@ import ActivityList from '../../../components/activity-list';
 import styles from './index.module.scss';
 
 export default () => {
+  const formRef = useRef();
+  const myRef = useRef();
   const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const searchAndResetBtn = (
@@ -24,16 +26,12 @@ export default () => {
       </Button>
     </Form.Item>
   );
-  const formRef = useRef();
-  const myRef = useRef();
   // 将子组件ref暴露出去，在父组件上绑定ref获取子组件内绑定的ref
   // 【坑】ref必须挂载到dom元素而非react组件，否则获取不到dom
   const SearchCondition = forwardRef((props, ref) => (
     <ActivityForm slot={searchAndResetBtn} forwardRef={ref} />
   ));
-
   const filterDataSource = (datasource, condition) => {
-    console.log(datasource);
     const {
       activityName,
       activityPort,
@@ -66,7 +64,6 @@ export default () => {
         // 检验通过
         // 一般数据量大的时候，掉后台接口过滤，同时分页
         // antd table 有前台过滤功能吗？
-        console.log('value', value);
         const result = filterDataSource(datasource, value);
         myRef.current.setDataSource(result);
       })
@@ -75,10 +72,8 @@ export default () => {
       });
   };
   const handleReset = () => {
-    console.log('reset');
     formRef.current.resetFields();
     // 调查询接口，查询最新数据，更新table
-    console.log(myRef.current.dataSource);
     myRef.current.setDataSource(myRef.current.dataSource);
   };
   const handleLoadingChange = (isShow) => {
