@@ -26,20 +26,17 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { BrowserRouter, HashRouter } from "react-router-dom";
 import Routes from "./router";
 
-<React.StrictMode>
-  <BrowserRouter>
-    <Routes />
-  </BrowserRouter>
-</React.StrictMode>
+<BrowserRouter>
+  <Routes />
+</BrowserRouter>
 ```
 
 ##### 4. Q&A
 
 1. 路由有几种模式？推荐使用哪种模式？为什么？
    - Histoty
-     - 
+     -
    - Hash
-   
-2. 
+2.
 
-3. 注意：withRouter在react-router-dom@6中被删除。
+3. 注意：withRouter 在 react-router-dom@6 中被删除。

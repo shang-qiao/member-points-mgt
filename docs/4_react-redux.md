@@ -61,13 +61,11 @@ export default configureStore({
 import { Provider } from "react-redux";
 import store from "./store";
 
-<React.StrictMode>
-  <Provider store={store}>
-    <BrowserRouter>
-      <Routes />
-    </BrowserRouter>
-  </Provider>
-</React.StrictMode>;
+<Provider store={store}>
+  <BrowserRouter>
+    <Routes />
+  </BrowserRouter>
+</Provider>
 ```
 
 ##### 3. 使用 redux
@@ -116,4 +114,4 @@ const Login = () => {
 ##### 4. Q&A
 
 1. redux 和 react-redux 的关系？
-2. 原理？react的context状态树组件通信有点类似？
+2. 原理？react 的 context 状态树组件通信有点类似？
